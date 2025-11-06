@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>부서 리스트</title>
+</head>
+<body>
+    <h1>부서리스트</h1>
+    <hr>
+<!--    <p th:text="${depts}"></p>-->
+    <table>
+        <thead>
+        <tr>
+            <th>번호 </th>
+            <th>이름</th>
+            <th>위치</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="d:${depts}">
+                <td th:text="${d.getId()}"></td>
+                <td th:text="${d.dname}"></td>
+                <td th:text="${d.loc}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
