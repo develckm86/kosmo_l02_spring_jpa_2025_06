@@ -1,6 +1,7 @@
 package com.smu.l02_jpa_ojdbc_scott.repository;
 
-import com.smu.l02_jpa_ojdbc_scott.entity.DetpEntity;
+import com.smu.l02_jpa_ojdbc_scott.entity.DeptEntity;
+import com.smu.l02_jpa_ojdbc_scott.entity.EmpEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,8 +10,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 //빅팩토리
 @SpringBootTest
 class DeptRepositoryTest {
@@ -18,8 +17,15 @@ class DeptRepositoryTest {
     DeptRepository deptRepository;
     @Test
     void findAll() throws Exception{
-        List<DetpEntity> depts=deptRepository.findAll();
-        System.out.println(depts);
+        List<DeptEntity> depts=deptRepository.findAll();
+        //System.out.println(depts);
+        for(DeptEntity d: depts){
+            System.out.println(d);
+//            System.out.println(d.getEmps());
+//            for(EmpEntity e: d.getEmps()){
+//                System.out.println(e);
+//            }
+        }
     }
 
     @Test
@@ -38,18 +44,35 @@ class DeptRepositoryTest {
     }
     @Test
     void save()throws SQLException {
-        DetpEntity detpEntity = new DetpEntity();
+        DeptEntity detpEntity = new DeptEntity();
         detpEntity.setId(99);
         detpEntity.setDname("test2");
         detpEntity.setLoc("SEOUL2");
-        DetpEntity saveDetp=deptRepository.save(detpEntity);
+        DeptEntity saveDetp=deptRepository.save(detpEntity);
         System.out.println(saveDetp);
 //        System.out.println(deptRepository.findById(99));
-        Optional<DetpEntity> deptOpt=deptRepository.findById(99);
+        Optional<DeptEntity> deptOpt=deptRepository.findById(99);
         deptOpt.ifPresent(d->{
             System.out.println("deptOpt:"+d);
         });
     }
+    @Test
+    void getAll() throws Exception{
+        System.out.println(deptRepository.getAll());
+    }
 
+    @Test
+    void getByDname() {
+        System.out.println(deptRepository.getByDname("ACCOUNTING"));
+    }
 
+    @Test
+    void getSumById() {
+        System.out.println(deptRepository.getSumById());
+    }
+
+    @Test
+    void nativeGetByLoc() {
+        System.out.println(deptRepository.nativeGetByLoc("BOSTON"));
+    }
 }
